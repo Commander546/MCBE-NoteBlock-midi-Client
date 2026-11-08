@@ -1,0 +1,34 @@
+{
+    files = {
+        [[C:\Users\yoshihiro\desktop\mc-note-client\xmake.lua]],
+        [[C:\Users\yoshihiro\desktop\mc-note-client\.xmake\windows\x64\xmake.conf]]
+    },
+    values = {
+        [[src\attack.cpp]],
+        [[src\block_event.cpp]],
+        [[src\core\midi.cpp]],
+        [[src\core\midi.cpp]],
+        [[src\core\schedule.cpp]],
+        [[src\core\schedule.cpp]],
+        [[src\dllmain.cpp]],
+        [[src\note_probe.cpp]],
+        [[src\note_scan.cpp]],
+        [[src\note_table.cpp]],
+        [[src\packet_probe.cpp]],
+        [[src\player.cpp]],
+        [[src\player_probe.cpp]],
+        [[src\present_hook.cpp]],
+        [[src\sig_diag.cpp]],
+        [[src\sig_scan.cpp]],
+        [[src\slot_trace.cpp]],
+        [[src\trace_probe.cpp]],
+        [[tests\midi_test.cpp]],
+        [[third_party\imgui\backends\imgui_impl_dx11.cpp]],
+        [[third_party\imgui\backends\imgui_impl_win32.cpp]],
+        [[third_party\imgui\imgui.cpp]],
+        [[third_party\imgui\imgui_demo.cpp]],
+        [[third_party\imgui\imgui_draw.cpp]],
+        [[third_party\imgui\imgui_tables.cpp]],
+        [[third_party\imgui\imgui_widgets.cpp]]
+    }
+}
