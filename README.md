@@ -48,7 +48,7 @@ Issue に、次を書いてください。
 ## ビルド / Build
 
 ```powershell
-git clone --recurse-submodules <このリポジトリのURL>
+git clone --recurse-submodules https://github.com/Commander546/MCBE-NoteBlock-midi-Client.git
 cd mcnote
 xmake f -m release -c
 xmake
