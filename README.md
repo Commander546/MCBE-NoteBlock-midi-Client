@@ -1,4 +1,4 @@
-# mcnote (beta)
+# mcnote
 
 Minecraft Bedrock Edition (Windows / GDK) 向けの、音ブロック自動演奏ツールです。
 MIDIファイルを読み込んで、周りの音ブロックを順番に叩いて演奏します。
