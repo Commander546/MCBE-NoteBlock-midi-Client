@@ -2,6 +2,7 @@
 
 #include <windows.h>
 
+#include <algorithm>
 #include <array>
 #include <atomic>
 #include <cstdint>
@@ -23,6 +24,7 @@
 namespace {
 
 std::atomic<ULONGLONG> g_beat_tick{0};
+std::atomic<int> g_use_variant{0};
 
 // startDestroyBlock
 // の先頭のバイト列(位置ではなく、バイト列で探すので、更新に強い)
@@ -42,6 +44,7 @@ using StopFn = void (*)(void *self, const BlockPos *pos);
 struct Request {
   BlockPos pos;
   int face;
+  bool use = false; // true なら右クリック(調律)
 };
 
 safetyhook::InlineHook g_hook;
@@ -103,6 +106,25 @@ std::string module_of(std::uintptr_t addr) {
                      addr - reinterpret_cast<std::uintptr_t>(m));
 }
 
+// バイト列を、RVA付きで16バイトずつ表示する
+void dump_bytes(const std::string &label, std::uintptr_t from,
+                std::size_t len) {
+  std::array<std::uint8_t, 0xC0> buf{};
+  if (len > buf.size() ||
+      !safe_read(reinterpret_cast<const void *>(from), buf.data(), len)) {
+    log(std::format("[mcnote]   {}: (unreadable)", label));
+    return;
+  }
+  const auto base = reinterpret_cast<std::uintptr_t>(GetModuleHandleW(nullptr));
+  for (std::size_t off = 0; off < len; off += 16) {
+    std::string hex;
+    for (std::size_t i = off; i < std::min<std::size_t>(off + 16, len); ++i)
+      hex += std::format("{:02X} ", buf[i]);
+    log(std::format("[mcnote]   {} +0x{:X}: {}", label, from + off - base,
+                    hex));
+  }
+}
+
 // 自分で呼んでいる間に落ちたら、落ちた場所と呼び出しの道筋を記録する(止めるのは、下のSEHの役目)
 LONG CALLBACK crash_logger(EXCEPTION_POINTERS *ep) {
   if (!g_attacking.load())
@@ -136,6 +158,24 @@ LONG CALLBACK crash_logger(EXCEPTION_POINTERS *ep) {
       "[mcnote]   rax=0x{:X} rcx=0x{:X} rdx=0x{:X} r8=0x{:X} r9=0x{:X}",
       c0->Rax, c0->Rcx, c0->Rdx, c0->R8, c0->R9));
 
+  log(std::format(
+      "[mcnote]   rbx=0x{:X} rsi=0x{:X} rdi=0x{:X} rbp=0x{:X} rsp=0x{:X}",
+      c0->Rbx, c0->Rsi, c0->Rdi, c0->Rbp, c0->Rsp));
+  log(std::format("[mcnote]   r10=0x{:X} r11=0x{:X} r12=0x{:X} r13=0x{:X} "
+                  "r14=0x{:X} r15=0x{:X}",
+                  c0->R10, c0->R11, c0->R12, c0->R13, c0->R14, c0->R15));
+  {
+    DWORD64 ib = 0;
+    PRUNTIME_FUNCTION rf0 = RtlLookupFunctionEntry(c0->Rip, &ib, nullptr);
+    if (rf0 && ib == base) { // 落ちた関数の先頭から、落ちた命令の少し先まで
+      const std::uintptr_t begin =
+          static_cast<std::uintptr_t>(ib + rf0->BeginAddress);
+      const std::size_t len = std::min<std::size_t>(
+          static_cast<std::size_t>(c0->Rip - begin) + 0x20, 0xC0);
+      dump_bytes("crash fn", begin, len);
+    }
+  }
+
   CONTEXT c = *c0;
   for (int i = 0; i < 16 && c.Rip; ++i) {
     DWORD64 image_base = 0;
@@ -146,6 +186,10 @@ LONG CALLBACK crash_logger(EXCEPTION_POINTERS *ep) {
       extra = std::format(" (game fn=+0x{:X})", rf->BeginAddress);
     log(std::format("[mcnote]   #{} {}{}", i,
                     module_of(static_cast<std::uintptr_t>(c.Rip)), extra));
+
+    if (i == 1 || i == 2) // 呼び出し元の、呼び出し付近のバイト列
+      dump_bytes(i == 1 ? "caller1" : "caller2",
+                 static_cast<std::uintptr_t>(c.Rip) - 0x90, 0xA0);
 
     if (!rf) { // 葉の関数: スタックの先頭がリターンアドレス
       DWORD64 ret = 0;
@@ -225,6 +269,77 @@ StopFn resolve_stop(void *self) {
         bytes));
   }
   return reinterpret_cast<StopFn>(fn);
+}
+
+constexpr int kStartBuildSlot = 5; // 右ボタンを押した
+constexpr int kBuildSlot = 6;      // 使う(細い関数)
+constexpr int kStopBuildSlot = 8;  // 離した(立っている間も毎フレーム呼ばれる)
+
+using StartBuildFn = void (*)(void *self, const BlockPos *pos,
+                              std::uint32_t face, std::uint32_t flag);
+using BuildFn = bool (*)(void *self, const BlockPos *pos, std::uint32_t face,
+                         bool sim_tick);
+using StopBuildFn = void (*)(void *self);
+
+constexpr int kUseItemOnSlot = 13;
+
+using UseItemOnFn = void *(*)(void *self, void *ret, void *item,
+                              const BlockPos *pos, std::uint8_t face,
+                              const float *hit, const void *block);
+
+// 本物の右クリックで渡された ItemStack
+// の中身。スタック上の一時物なので、ポインタではなく中身をコピーして覚える
+struct UseArgs {
+  std::array<std::uint8_t, 0xC0> item{};
+};
+UseArgs g_use_args;
+bool g_use_valid = false; // g_mutex で守る
+
+bool guarded_use_item_on(UseItemOnFn fn, void *self, void *item,
+                         const BlockPos *pos, std::uint8_t face,
+                         const float *hit) {
+  alignas(16) std::uint8_t ret[64] = {}; // 戻り値用の領域(ゼロで埋める)
+  __try {
+    fn(self, ret, item, pos, face, hit,
+       nullptr); // 7番目は、本物の呼び出しでは使われていなかった
+    return true;
+  } __except (seh_filter(GetExceptionCode())) {
+    return false;
+  }
+}
+
+// vtableの idx 番目の関数のアドレス(ゲーム本体の中を指していなければ 0)
+std::uintptr_t vslot(void *self, int idx) {
+  std::uintptr_t vt = 0, fn = 0;
+  if (!safe_read(self, &vt, sizeof(vt)))
+    return 0;
+  if (!safe_read(reinterpret_cast<const void *>(
+                     vt + static_cast<std::uintptr_t>(idx) * 8),
+                 &fn, sizeof(fn)))
+    return 0;
+
+  const auto base = reinterpret_cast<std::uintptr_t>(GetModuleHandleW(nullptr));
+  const auto *dos = reinterpret_cast<const IMAGE_DOS_HEADER *>(base);
+  const auto *nt =
+      reinterpret_cast<const IMAGE_NT_HEADERS *>(base + dos->e_lfanew);
+  const auto image_end =
+      base + static_cast<std::uintptr_t>(nt->OptionalHeader.SizeOfImage);
+  return (fn >= base && fn < image_end) ? fn : 0;
+}
+
+bool guarded_use(int variant, StartBuildFn start, BuildFn build,
+                 StopBuildFn stop, void *self, const BlockPos *pos,
+                 std::uint32_t face, bool *built) {
+  __try {
+    if (variant != 1)
+      start(self, pos, face, 0); // 本物は4つ目が0だった
+    *built = build(self, pos, face, false);
+    if (variant == 0)
+      stop(self);
+    return true;
+  } __except (seh_filter(GetExceptionCode())) {
+    return false;
+  }
 }
 
 // 今のGameModeを返す。プレイヤー内の場所が分かっていれば、そこから読む(モードを切り替えても最新)
@@ -358,6 +473,8 @@ bool hooked_start_destroy(void *self, const BlockPos *pos, std::uint32_t face,
 
 } // namespace
 
+bool attack_in_progress() { return g_attacking.load(); }
+
 void install_attack_hook() {
   int hits = 0;
   const auto addr = sig_find(kStartDestroySig, &hits);
@@ -465,6 +582,43 @@ void request_attack(HWND hwnd, int x, int y, int z, int face) {
   PostMessageW(hwnd, kMsgAttack, 0, 0);
 }
 
+void attack_set_use_variant(int variant) { g_use_variant = variant; }
+
+void attack_capture_use(std::uint64_t item, std::uint64_t /*rsp*/) {
+  if (g_attacking.load())
+    return; // 自分の呼び出しでは覚えない
+
+  UseArgs a;
+  if (!item || !safe_read(reinterpret_cast<const void *>(item), a.item.data(),
+                          a.item.size()))
+    return;
+
+  // 手が空なら、先頭(vtable)以外は、ほぼ0のはず
+  int nonzero = 0;
+  for (std::size_t i = 8; i < 0x40; ++i)
+    nonzero += a.item[i] != 0;
+
+  {
+    std::lock_guard lock(g_mutex);
+    g_use_args = a;
+    g_use_valid = true;
+  }
+  log(std::format("[mcnote] use args captured: item copied ({} non-zero bytes "
+                  "in +8..+0x40; 0 = "
+                  "empty hand)",
+                  nonzero));
+}
+
+void request_use(HWND hwnd, int x, int y, int z, int face) {
+  {
+    std::lock_guard lock(g_mutex);
+    if (g_queue.size() >= 64)
+      return;
+    g_queue.push_back({{x, y, z}, face, true});
+  }
+  PostMessageW(hwnd, kMsgAttack, 0, 0);
+}
+
 void attack_on_ui_thread() {
   std::deque<Request> work;
   {
@@ -520,6 +674,81 @@ void attack_on_ui_thread() {
   for (const auto &r : work) {
     alignas(16) std::int32_t pos[4] = {r.pos.x, r.pos.y, r.pos.z, 0};
     alignas(16) std::uint8_t arg4[64] = {}; // 4つ目の引数: 大きめのゼロ領域
+
+    if (r.use) { // 右クリック(調律)
+      const auto f_start = vslot(self, kStartBuildSlot);
+      const auto f_build = vslot(self, kBuildSlot);
+      const auto f_stop = vslot(self, kStopBuildSlot);
+      if (!f_start || !f_build || !f_stop) {
+        log("[mcnote] use skipped: vtable slots not available");
+        continue;
+      }
+
+      const int variant = g_use_variant.load();
+
+      if (variant == 3) {
+        UseArgs ua;
+        bool have = false;
+        {
+          std::lock_guard lock(g_mutex);
+          ua = g_use_args;
+          have = g_use_valid;
+        }
+        const auto f13 = vslot(self, kUseItemOnSlot);
+        if (!have || !f13) {
+          log("[mcnote] use skipped: right-click a note block by hand once to "
+              "capture the item");
+          continue;
+        }
+
+        alignas(16) std::array<std::uint8_t, 0xC0> item =
+            ua.item; // 自分のコピーを渡す
+        // 上の面(face=1)の真ん中をクリックしたことにする(ヒット位置は、ワールド座標)
+        alignas(16) float hit[4] = {pos[0] + 0.5f, pos[1] + 1.0f, pos[2] + 0.5f,
+                                    0.0f};
+
+        g_attacking = true;
+        const bool ok3 = guarded_use_item_on(
+            reinterpret_cast<UseItemOnFn>(f13), self, item.data(),
+            reinterpret_cast<const BlockPos *>(pos), 1, hit);
+        g_attacking = false;
+        if (!ok3) {
+          log("[mcnote] use failed (variant 3): exception inside useItemOn; "
+              "stopping");
+          player_stop();
+          break;
+        }
+        if (!g_quiet.load())
+          log(std::format("[mcnote] use (variant 3) ({}, {}, {}) face=1",
+                          pos[0], pos[1], pos[2]));
+        continue;
+      }
+
+      bool built = false;
+      g_attacking = true;
+      const bool use_ok =
+          guarded_use(variant, reinterpret_cast<StartBuildFn>(f_start),
+                      reinterpret_cast<BuildFn>(f_build),
+                      reinterpret_cast<StopBuildFn>(f_stop), self,
+                      reinterpret_cast<const BlockPos *>(pos),
+                      static_cast<std::uint32_t>(r.face), &built);
+      g_attacking = false;
+      if (!use_ok) {
+        // ゲームモードの問題ではなく、右クリックの処理の中で例外が起きた(上の
+        // CRASH の行を見る)
+        log(std::format("[mcnote] use failed (variant {}): exception inside "
+                        "the game's right-click "
+                        "code; stopping",
+                        variant));
+        player_stop();
+        break;
+      }
+      if (!g_quiet.load())
+        log(std::format(
+            "[mcnote] use (variant {}) ({}, {}, {}) face={} built={}", variant,
+            pos[0], pos[1], pos[2], r.face, built));
+      continue;
+    }
 
     if (!g_quiet.load()) {
       const auto age_ms = GetTickCount64() - g_last_real_tick.load();

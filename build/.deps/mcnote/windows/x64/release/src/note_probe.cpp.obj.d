@@ -1,7 +1,5 @@
 {
-    files = {
-        [[src\note_probe.cpp]]
-    },
+    depfiles_format = "cl_json",
     depfiles = "{\
     \"Version\": \"1.2\",\
     \"Data\": {\
@@ -391,15 +389,16 @@
             \"c:\\\\users\\\\yoshihiro\\\\appdata\\\\local\\\\.xmake\\\\packages\\\\s\\\\safetyhook\\\\v0.7.0\\\\13306f1ea52a4a9b962d07a21c9dcef7\\\\include\\\\safetyhook\\\\context.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\appdata\\\\local\\\\.xmake\\\\packages\\\\s\\\\safetyhook\\\\v0.7.0\\\\13306f1ea52a4a9b962d07a21c9dcef7\\\\include\\\\safetyhook\\\\vmt_hook.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\attack.hpp\",\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\block_event.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\log.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\note_scan.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\note_table.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\packet_probe.hpp\",\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\rc_probe.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\sig_scan.hpp\",\
             \"c:\\\\program files\\\\microsoft visual studio\\\\2022\\\\community\\\\vc\\\\tools\\\\msvc\\\\14.44.35207\\\\include\\\\string_view\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\thread_info.hpp\",\
-            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\trace_probe.hpp\",\
-            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\block_event.hpp\"\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\trace_probe.hpp\"\
         ],\
         \"ImportedModules\": [],\
         \"ImportedHeaderUnits\": []\
@@ -430,5 +429,7 @@
             "-DNDEBUG"
         }
     },
-    depfiles_format = "cl_json"
+    files = {
+        [[src\note_probe.cpp]]
+    }
 }

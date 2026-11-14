@@ -69,6 +69,9 @@ void record(int idx, const SafetyHookContext *ctx) {
     attack_heartbeat(
         reinterpret_cast<void *>(ctx->rcx)); // スロット0(後片付けの関数)は除く
 
+  if (ctx && g_slot_offset[idx] == 13 && on_main_thread())
+    attack_capture_use(ctx->r8, ctx->rsp); // 本物の右クリックの引数を覚える
+
   if (!g_on.load(std::memory_order_relaxed) || !on_main_thread())
     return;
 

@@ -1,4 +1,5 @@
 {
+    depfiles_format = "cl_json",
     depfiles = "{\
     \"Version\": \"1.2\",\
     \"Data\": {\
@@ -433,6 +434,5 @@
     },
     files = {
         [[src\slot_trace.cpp]]
-    },
-    depfiles_format = "cl_json"
+    }
 }

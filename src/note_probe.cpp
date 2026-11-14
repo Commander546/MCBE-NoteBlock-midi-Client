@@ -10,14 +10,16 @@
 #include <safetyhook.hpp>
 
 #include "attack.hpp"
+#include "block_event.hpp"
 #include "log.hpp"
 #include "note_scan.hpp"
 #include "note_table.hpp"
 #include "packet_probe.hpp"
+#include "rc_probe.hpp"
 #include "sig_scan.hpp"
 #include "thread_info.hpp"
 #include "trace_probe.hpp"
-#include "block_event.hpp"
+
 
 namespace {
 
@@ -209,4 +211,5 @@ void install_note_probe() {
   install_attack_hook();
   install_packet_probe();
   install_block_event_hook();
+  install_rc_probe();
 }

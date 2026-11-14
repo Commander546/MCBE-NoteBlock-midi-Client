@@ -10,6 +10,7 @@
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
+#include <dxgi1_2.h>
 
 #include "attack.hpp"
 #include "log.hpp"
@@ -29,6 +30,16 @@
 #include "player.hpp"
 #include "player_probe.hpp"
 
+#include <dxgi1_4.h>
+
+#include "gfx_dx12.hpp"
+
+#include <cstdio>
+#include <filesystem>
+
+#include "file_dialog.hpp"
+#include "util_path.hpp"
+
 using Microsoft::WRL::ComPtr;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM,
@@ -45,12 +56,21 @@ safetyhook::InlineHook g_resize_hook;
 safetyhook::InlineHook g_clip_hook;
 safetyhook::InlineHook g_setpos_hook;
 
+safetyhook::InlineHook g_present1_hook;
+safetyhook::InlineHook g_resize1_hook;
+thread_local int t_present_depth =
+    0; // Presentの中でPresent1が呼ばれる場合に、二重に描画しないため
+
 bool g_cursor_hooks_ok = false;
 RECT g_game_clip{}; // ゲームが最後に設定したClipCursorの範囲
 bool g_game_has_clip = false;
 
+enum class Api { None, Dx11, Dx12 };
+
 struct State {
-  bool initialized = false;
+  bool common_ready = false; // ImGui本体とWin32側の準備ができたか
+  bool init_failed = false;  // 対応していないAPIなら、1回で諦める
+  Api api = Api::None;
   std::atomic_bool visible = false;
   HWND hwnd{};
   WNDPROC orig_wndproc{};
@@ -62,6 +82,32 @@ struct State {
 
 int g_face = 1;
 int g_instrument = 0; // 使う楽器の番号(UIの "instrument")
+
+void handle_use_key() {
+  static bool was_down = false;
+  const bool down = GetForegroundWindow() == g.hwnd &&
+                    (GetAsyncKeyState(VK_F10) & 0x8000) != 0;
+  if (down && !was_down && !g.visible) {
+    BlockPos p{};
+    if (attack_last_clicked(p))
+      request_use(g.hwnd, p.x, p.y, p.z, g_face);
+  }
+  was_down = down;
+}
+
+// F11: 右クリックの呼び方を切り替える(0 → 1 → 2 → 0 ...)
+void handle_variant_key() {
+  static bool was_down = false;
+  static int variant = 0;
+  const bool down = GetForegroundWindow() == g.hwnd &&
+                    (GetAsyncKeyState(VK_F11) & 0x8000) != 0;
+  if (down && !was_down) {
+    variant = (variant + 1) % 4;
+    attack_set_use_variant(variant);
+    log(std::format("[mcnote] use variant = {}", variant));
+  }
+  was_down = down;
+}
 
 // F9: UIを開かずに攻撃する。対象は「最後に左クリックしたブロック」
 void handle_attack_key() {
@@ -141,9 +187,32 @@ bool is_key_press_or_char(UINT msg) {
          msg == WM_SYSCHAR || msg == WM_UNICHAR;
 }
 
+void toggle_ui();
+bool toggle_key_allowed();
+bool g_swallow_m_char =
+    false; // Mで開閉したときに、続く文字入力(WM_CHAR)を、ゲームへ渡さない
+bool g_swallow_m_up = false;
+
 LRESULT CALLBACK hooked_wndproc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
   if (msg == kMsgAttack) {
     attack_on_ui_thread();
+    return 0;
+  }
+  // Mキーでも開閉できる(Insertが無いキーボード向け)。ゲームには渡さない
+  if (msg == WM_KEYDOWN && wp == 'M' &&
+      !(lp & (1 << 30)) /* 押しっぱなしの繰り返しは除く */ &&
+      toggle_key_allowed()) {
+    toggle_ui();
+    g_swallow_m_char = true;
+    g_swallow_m_up = true;
+    return 0;
+  }
+  if (msg == WM_CHAR && (wp == 'm' || wp == 'M') && g_swallow_m_char) {
+    g_swallow_m_char = false;
+    return 0;
+  }
+  if (msg == WM_KEYUP && wp == 'M' && g_swallow_m_up) {
+    g_swallow_m_up = false;
     return 0;
   }
   if (g.visible) {
@@ -173,18 +242,36 @@ bool create_rtv(IDXGISwapChain *sc) {
       g.device->CreateRenderTargetView(back_buffer.Get(), nullptr, &g.rtv));
 }
 
-bool init_imgui(IDXGISwapChain *sc) {
-  if (FAILED(sc->GetDevice(__uuidof(ID3D11Device), &g.device))) {
-    log("[mcnote] init failed: not a D3D11 device");
-    return false;
-  }
-  g.device->GetImmediateContext(&g.context);
+// D3D11ではなかったときに、何のAPIかをログに出す(1回だけ)
+void report_api(IDXGISwapChain *sc) {
+  constexpr GUID iid_d3d12_device{
+      0x189819f1,
+      0x1db6,
+      0x4b57,
+      {0xbe, 0x54, 0x18, 0x21, 0x33, 0x9b, 0x85, 0xf7}};
+  constexpr GUID iid_d3d12_queue{
+      0x0ec870a6,
+      0x5d7e,
+      0x4c22,
+      {0x8c, 0xfc, 0x5b, 0xaa, 0xe0, 0x76, 0x16, 0xed}};
+  ComPtr<IUnknown> dev12, queue12;
+  const bool has_dev = SUCCEEDED(sc->GetDevice(iid_d3d12_device, &dev12));
+  const bool has_queue = SUCCEEDED(sc->GetDevice(iid_d3d12_queue, &queue12));
+  log(std::format(
+      "[mcnote] graphics API is not D3D11. D3D12 device via GetDevice: {}, "
+      "command "
+      "queue via GetDevice: {}, d3d12.dll loaded: {}, d3d11.dll loaded: {}",
+      has_dev, has_queue, GetModuleHandleW(L"d3d12.dll") != nullptr,
+      GetModuleHandleW(L"d3d11.dll") != nullptr));
+}
 
+bool init_common(IDXGISwapChain *sc) {
   DXGI_SWAP_CHAIN_DESC desc{};
   sc->GetDesc(&desc);
   g.hwnd = desc.OutputWindow;
   if (!g.hwnd) {
     log("[mcnote] init failed: no window");
+    g.init_failed = true;
     return false;
   }
 
@@ -194,18 +281,46 @@ bool init_imgui(IDXGISwapChain *sc) {
   io.ConfigFlags |=
       ImGuiConfigFlags_NoMouseCursorChange; // カーソルの形はゲームに任せる
   ImGui::StyleColorsDark();
-
   ImGui_ImplWin32_Init(g.hwnd);
-  ImGui_ImplDX11_Init(g.device.Get(), g.context.Get());
 
   g.orig_wndproc = reinterpret_cast<WNDPROC>(SetWindowLongPtrW(
       g.hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&hooked_wndproc)));
 
-  g.swap_chain = sc;
-  g.initialized = true;
-  log("[mcnote] imgui initialized");
+  g.common_ready = true;
   log("[mcnote] imgui initialized, render thread: " + thread_info());
   return true;
+}
+
+// 描画APIを判定して、バックエンドを準備する。false
+// なら次のフレームでもう一度試す
+bool init_backend(IDXGISwapChain *sc) {
+  ComPtr<ID3D11Device> dev11;
+  if (SUCCEEDED(sc->GetDevice(__uuidof(ID3D11Device), &dev11))) {
+    g.device = dev11;
+    g.device->GetImmediateContext(&g.context);
+    ImGui_ImplDX11_Init(g.device.Get(), g.context.Get());
+    g.api = Api::Dx11;
+    log("[mcnote] graphics API: D3D11");
+    return true;
+  }
+
+  if (gfx12::is_d3d12(sc)) {
+    switch (gfx12::init(sc)) {
+    case gfx12::InitResult::Ready:
+      g.api = Api::Dx12;
+      log("[mcnote] graphics API: D3D12");
+      return true;
+    case gfx12::InitResult::Retry:
+      return false;
+    case gfx12::InitResult::Failed:
+      g.init_failed = true;
+      return false;
+    }
+  }
+
+  report_api(sc);
+  g.init_failed = true;
+  return false;
 }
 
 void draw_ui() {
@@ -213,7 +328,8 @@ void draw_ui() {
   ImGui::SetNextWindowSize(ImVec2(420, 360), ImGuiCond_FirstUseEver);
   if (ImGui::Begin("mcnote")) {
     ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
-    ImGui::TextDisabled("Insert: show/hide");
+    ImGui::TextDisabled(
+        "Insert / M: show/hide  (M works while playing, not in chat)");
     ImGui::Separator();
 
     if (ImGui::Button("Scan note blocks"))
@@ -313,8 +429,22 @@ void draw_ui() {
   }
 
   ImGui::Separator();
-  static char midi_path[260] = "";
+  static char midi_path[1024] = "";
   ImGui::InputText("midi path", midi_path, sizeof(midi_path));
+  ImGui::SameLine();
+  if (ImGui::Button("Browse..."))
+    file_dialog_open(g.hwnd, false);
+  if (file_dialog_busy())
+    ImGui::TextDisabled("choose a file in the dialog window...");
+
+  {
+    std::vector<std::filesystem::path> picked;
+    if (file_dialog_take(picked) && !picked.empty()) {
+      std::snprintf(midi_path, sizeof(midi_path), "%s",
+                    path_to_utf8(picked.front()).c_str());
+      player_load_path(picked.front()); // 選んだら、そのまま読み込む
+    }
+  }
   if (ImGui::Button("Load MIDI"))
     player_load(midi_path);
 
@@ -417,25 +547,62 @@ void draw_ui() {
   ImGui::End(); // Beginの結果に関係なく、必ず1回呼ぶ
 }
 
+void toggle_ui() {
+  g.visible = !g.visible;
+  if (g.visible) {
+    on_ui_opened();
+  } else {
+    on_ui_closed();
+  }
+}
+
+bool toggle_key_allowed() {
+  if (!g.common_ready || GetForegroundWindow() != g.hwnd)
+    return false;
+
+  // Ctrl / Alt / Win が押されていたら、別のショートカットなので無視する
+  for (const int vk : {VK_CONTROL, VK_MENU, VK_LWIN, VK_RWIN}) {
+    if (GetKeyState(vk) & 0x8000)
+      return false;
+  }
+  if (ImGui::GetIO().WantTextInput)
+    return false; // メニューの入力欄に打っている
+
+  // ゲームのカーソルが見えているとき(チャット・メニュー・インベントリ)は、普通の文字として使う
+  CURSORINFO ci{sizeof(ci)};
+  const bool cursor_visible = GetCursorInfo(&ci) &&
+                              (ci.flags & CURSOR_SHOWING) &&
+                              ci.hCursor != nullptr;
+  if (cursor_visible) {
+    static ULONGLONG last_log = 0;
+    const ULONGLONG now = GetTickCount64();
+    if (now - last_log > 2000) {
+      last_log = now;
+      log("[mcnote] M ignored: the cursor is visible (chat / menu?). Use "
+          "Insert there.");
+    }
+    return false;
+  }
+  return true;
+}
+
 // Insertキーで表示を切り替える。ゲームがフォーカスされているときだけ反応する。
 void handle_toggle_key() {
   static bool was_down = false;
   const bool down = GetForegroundWindow() == g.hwnd &&
                     (GetAsyncKeyState(VK_INSERT) & 0x8000) != 0;
 
-  if (down && !was_down) {
-    g.visible = !g.visible;
-    if (g.visible) {
-      on_ui_opened();
-    } else {
-      on_ui_closed();
-    }
-  }
+  if (down && !was_down)
+    toggle_ui();
   was_down = down;
 }
 
 void render_frame(IDXGISwapChain *sc) {
-  if (!g.initialized && !init_imgui(sc))
+  if (g.init_failed)
+    return;
+  if (!g.common_ready && !init_common(sc))
+    return;
+  if (g.api == Api::None && !init_backend(sc))
     return;
 
   if (g.swap_chain != sc) { // スワップチェーンが作り直された
@@ -445,35 +612,91 @@ void render_frame(IDXGISwapChain *sc) {
 
   handle_toggle_key();
   handle_attack_key();
+  handle_use_key();
+  handle_variant_key();
   slot_trace_poll_keys(g.hwnd);
 
   if (!g.visible)
     return;
-  if (!g.rtv && !create_rtv(sc))
-    return;
 
-  ImGui_ImplDX11_NewFrame();
-  ImGui_ImplWin32_NewFrame(); // OSのカーソル位置を読む(ゲームと同じ位置)
+  if (g.api == Api::Dx11) {
+    if (!g.rtv && !create_rtv(sc))
+      return;
+
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame(); // OSのカーソル位置を読む(ゲームと同じ位置)
+    ImGui::NewFrame();
+    draw_ui();
+    ImGui::Render();
+
+    ID3D11RenderTargetView *rtv = g.rtv.Get();
+    g.context->OMSetRenderTargets(1, &rtv, nullptr);
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+    return;
+  }
+
+  // D3D12(リサイズなどでバックエンドが作り直しになったときは、ここで準備し直す)
+  if (!gfx12::ready()) {
+    const auto r = gfx12::init(sc);
+    if (r == gfx12::InitResult::Failed)
+      g.init_failed = true;
+    if (r != gfx12::InitResult::Ready)
+      return;
+  }
+  gfx12::new_frame();
+  ImGui_ImplWin32_NewFrame();
   ImGui::NewFrame();
   draw_ui();
   ImGui::Render();
-
-  ID3D11RenderTargetView *rtv = g.rtv.Get();
-  g.context->OMSetRenderTargets(1, &rtv, nullptr);
-  ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+  gfx12::render(sc, ImGui::GetDrawData());
 }
 
 HRESULT STDMETHODCALLTYPE hooked_present(IDXGISwapChain *sc, UINT sync,
                                          UINT flags) {
-  render_frame(sc);
-  return g_present_hook.stdcall<HRESULT>(sc, sync, flags);
+  static bool first = true;
+  if (first) {
+    first = false;
+    log("[mcnote] first call: IDXGISwapChain::Present");
+  }
+  if (t_present_depth++ == 0)
+    render_frame(sc);
+  const HRESULT hr = g_present_hook.stdcall<HRESULT>(sc, sync, flags);
+  --t_present_depth;
+  return hr;
+}
+
+HRESULT STDMETHODCALLTYPE
+hooked_present1(IDXGISwapChain1 *sc, UINT sync, UINT flags,
+                const DXGI_PRESENT_PARAMETERS *params) {
+  static bool first = true;
+  if (first) {
+    first = false;
+    log("[mcnote] first call: IDXGISwapChain1::Present1");
+  }
+  if (t_present_depth++ == 0)
+    render_frame(sc);
+  const HRESULT hr = g_present1_hook.stdcall<HRESULT>(sc, sync, flags, params);
+  --t_present_depth;
+  return hr;
 }
 
 HRESULT STDMETHODCALLTYPE hooked_resize_buffers(IDXGISwapChain *sc, UINT count,
                                                 UINT w, UINT h, DXGI_FORMAT fmt,
                                                 UINT flags) {
   g.rtv.Reset(); // バックバッファを参照したままだとResizeBuffersが失敗する
+  if (g.api == Api::Dx12)
+    gfx12::on_resize_begin();
   return g_resize_hook.stdcall<HRESULT>(sc, count, w, h, fmt, flags);
+}
+
+HRESULT STDMETHODCALLTYPE hooked_resize_buffers1(
+    IDXGISwapChain3 *sc, UINT count, UINT w, UINT h, DXGI_FORMAT fmt,
+    UINT flags, const UINT *node_mask, IUnknown *const *present_queues) {
+  g.rtv.Reset();
+  if (g.api == Api::Dx12)
+    gfx12::on_resize_begin();
+  return g_resize1_hook.stdcall<HRESULT>(sc, count, w, h, fmt, flags, node_mask,
+                                         present_queues);
 }
 
 // ---------------------------------------------------------------------------
@@ -482,7 +705,9 @@ HRESULT STDMETHODCALLTYPE hooked_resize_buffers(IDXGISwapChain *sc, UINT count,
 
 struct Targets {
   void *present{};
+  void *present1{};
   void *resize_buffers{};
+  void *resize_buffers1{};
 };
 
 // ダミーのスワップチェーンを作って、vtableから関数アドレスを取る
@@ -517,6 +742,18 @@ Targets find_targets() {
     void **vtbl = *reinterpret_cast<void ***>(sc.Get());
     t.present = vtbl[8];         // IDXGISwapChain::Present
     t.resize_buffers = vtbl[13]; // IDXGISwapChain::ResizeBuffers
+
+    ComPtr<IDXGISwapChain1> sc1;
+    if (SUCCEEDED(sc.As(&sc1))) {
+      void **vtbl1 = *reinterpret_cast<void ***>(sc1.Get());
+      t.present1 = vtbl1[22]; // IDXGISwapChain1::Present1
+    }
+
+    ComPtr<IDXGISwapChain3> sc3;
+    if (SUCCEEDED(sc.As(&sc3))) {
+      void **vtbl3 = *reinterpret_cast<void ***>(sc3.Get());
+      t.resize_buffers1 = vtbl3[39]; // IDXGISwapChain3::ResizeBuffers1
+    }
   }
 
   sc.Reset();
@@ -566,6 +803,27 @@ void install_present_hook() {
   g_present_hook = std::move(*present);
   g_resize_hook = std::move(*resize);
   log("[mcnote] Present/ResizeBuffers hooked");
+
+  if (t.present1) {
+    auto p1 = safetyhook::InlineHook::create(
+        t.present1, reinterpret_cast<void *>(&hooked_present1));
+    if (p1) {
+      g_present1_hook = std::move(*p1);
+      log("[mcnote] Present1 hooked");
+
+      if (t.resize_buffers1) {
+        auto r1 = safetyhook::InlineHook::create(
+            t.resize_buffers1,
+            reinterpret_cast<void *>(&hooked_resize_buffers1));
+        if (r1) {
+          g_resize1_hook = std::move(*r1);
+          log("[mcnote] ResizeBuffers1 hooked");
+        }
+      }
+    } else {
+      log("[mcnote] failed to hook Present1");
+    }
+  }
 
   install_cursor_hooks();
 }

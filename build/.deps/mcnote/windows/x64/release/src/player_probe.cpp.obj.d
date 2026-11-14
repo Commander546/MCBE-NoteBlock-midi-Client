@@ -1,4 +1,5 @@
 {
+    depfiles_format = "cl_json",
     depfiles = "{\
     \"Version\": \"1.2\",\
     \"Data\": {\
@@ -367,9 +368,6 @@
         \"ImportedHeaderUnits\": []\
     }\
 }",
-    files = {
-        [[src\player_probe.cpp]]
-    },
     values = {
         [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
         {
@@ -395,5 +393,7 @@
             "-DNDEBUG"
         }
     },
-    depfiles_format = "cl_json"
+    files = {
+        [[src\player_probe.cpp]]
+    }
 }

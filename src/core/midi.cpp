@@ -135,7 +135,7 @@ bool parse_midi(const std::vector<std::uint8_t> &data, MidiFile &out, std::strin
   return true;
 }
 
-bool load_midi_file(const std::string &path, MidiFile &out, std::string &error) {
+bool load_midi_file(const std::filesystem::path &path, MidiFile &out, std::string &error) {
   std::ifstream f(path, std::ios::binary);
   if (!f) { error = "cannot open file"; return false; }
   const std::vector<std::uint8_t> data((std::istreambuf_iterator<char>(f)),

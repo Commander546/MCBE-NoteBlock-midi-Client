@@ -1,7 +1,7 @@
 #include "player.hpp"
 
-#include <windows.h>
 #include <timeapi.h>
+#include <windows.h>
 
 #include <algorithm>
 #include <atomic>
@@ -18,6 +18,10 @@
 #include "core/schedule.hpp"
 #include "log.hpp"
 #include "note_table.hpp"
+
+#include <filesystem>
+
+#include "util_path.hpp"
 
 namespace {
 
@@ -47,23 +51,29 @@ void set_message(std::string m) {
 
 void play_thread(std::vector<Event> events, HWND hwnd, int face) {
   timeBeginPeriod(1); // 待ち時間の精度を1msに上げる
-  const auto start = Clock::now() + std::chrono::seconds(1); // 最初の音までの余裕
+  const auto start =
+      Clock::now() + std::chrono::seconds(1); // 最初の音までの余裕
 
   std::size_t i = 0;
   while (i < events.size() && !g_stop.load()) {
     const auto target =
-        start + std::chrono::milliseconds(static_cast<long long>(events[i].tick) * 50);
+        start +
+        std::chrono::milliseconds(static_cast<long long>(events[i].tick) * 50);
     while (!g_stop.load()) {
       const auto now = Clock::now();
-      if (now >= target) break;
-      std::this_thread::sleep_for(
-          std::min<Clock::duration>(target - now, std::chrono::milliseconds(2)));
+      if (now >= target)
+        break;
+      std::this_thread::sleep_for(std::min<Clock::duration>(
+          target - now, std::chrono::milliseconds(2)));
     }
-    if (g_stop.load()) break;
+    if (g_stop.load())
+      break;
 
     const auto tick = events[i].tick;
-    while (i < events.size() && events[i].tick == tick) { // 同じtickの音をまとめて依頼
-      request_attack(hwnd, events[i].pos.x, events[i].pos.y, events[i].pos.z, face);
+    while (i < events.size() &&
+           events[i].tick == tick) { // 同じtickの音をまとめて依頼
+      request_attack(hwnd, events[i].pos.x, events[i].pos.y, events[i].pos.z,
+                     face);
       ++i;
     }
     g_pos_tick = tick;
@@ -77,11 +87,7 @@ void play_thread(std::vector<Event> events, HWND hwnd, int face) {
 
 } // namespace
 
-bool player_load(std::string path) {
-  // エクスプローラーの「パスのコピー」は前後に " が付くので取り除く
-  while (!path.empty() && (path.front() == '"' || path.front() == ' ')) path.erase(path.begin());
-  while (!path.empty() && (path.back() == '"' || path.back() == ' ')) path.pop_back();
-
+bool player_load_path(const std::filesystem::path &path) {
   mcnote::core::MidiFile m;
   std::string err;
   if (!mcnote::core::load_midi_file(path, m, err)) {
@@ -99,6 +105,15 @@ bool player_load(std::string path) {
   return true;
 }
 
+bool player_load(std::string path) { // UTF-8 の文字列(入力欄から)
+  // エクスプローラーの「パスのコピー」は前後に " が付くので取り除く
+  while (!path.empty() && (path.front() == '"' || path.front() == ' '))
+    path.erase(path.begin());
+  while (!path.empty() && (path.back() == '"' || path.back() == ' '))
+    path.pop_back();
+  return player_load_path(path_from_utf8(path));
+}
+
 std::vector<TrackInfo> player_tracks() {
   std::lock_guard lock(g_mutex);
   std::map<std::pair<int, int>, TrackInfo> by_key;
@@ -111,12 +126,14 @@ std::vector<TrackInfo> player_tracks() {
     t.hi = std::max<int>(t.hi, n.pitch);
   }
   std::vector<TrackInfo> out;
-  for (const auto &[key, t] : by_key) out.push_back(t);
+  for (const auto &[key, t] : by_key)
+    out.push_back(t);
   return out;
 }
 
 bool player_play(HWND hwnd, const PlayOptions &opt) {
-  if (g_playing.load()) return false;
+  if (g_playing.load())
+    return false;
   if (!attack_ready()) {
     set_message("left-click any block once (UI closed) first");
     return false;
@@ -143,7 +160,8 @@ bool player_play(HWND hwnd, const PlayOptions &opt) {
   // ブロックの音程(0..24) -> 座標
   std::map<int, BlockPos> block_of;
   for (const auto &e : note_table_snapshot()) {
-    if (e.instrument == opt.instrument) block_of.try_emplace(e.note, BlockPos{e.x, e.y, e.z});
+    if (e.instrument == opt.instrument)
+      block_of.try_emplace(e.note, BlockPos{e.x, e.y, e.z});
   }
 
   std::vector<Event> events;

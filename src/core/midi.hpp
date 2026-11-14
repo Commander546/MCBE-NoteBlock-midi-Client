@@ -1,15 +1,17 @@
 #pragma once
 #include <cstdint>
+#include <filesystem>
 #include <string>
 #include <vector>
+
 
 namespace mcnote::core {
 
 struct MidiNote {
-  std::uint32_t tick;     // MIDIのtick(曲の先頭から)
-  std::uint8_t pitch;     // 0..127 (60 = 中央のド)
+  std::uint32_t tick; // MIDIのtick(曲の先頭から)
+  std::uint8_t pitch; // 0..127 (60 = 中央のド)
   std::uint8_t velocity;
-  std::uint8_t channel;   // 0..15 (9 がドラム)
+  std::uint8_t channel; // 0..15 (9 がドラム)
   std::uint16_t track;
 };
 
@@ -26,8 +28,10 @@ struct MidiFile {
 };
 
 // 失敗したら error に理由(英語)を入れて false を返す
-bool parse_midi(const std::vector<std::uint8_t> &data, MidiFile &out, std::string &error);
-bool load_midi_file(const std::string &path, MidiFile &out, std::string &error);
+bool parse_midi(const std::vector<std::uint8_t> &data, MidiFile &out,
+                std::string &error);
+bool load_midi_file(const std::filesystem::path &path, MidiFile &out,
+                    std::string &error);
 
 // MIDIのtickを秒に変換する(テンポの変化を考慮)
 double midi_tick_to_seconds(const MidiFile &m, std::uint32_t tick);

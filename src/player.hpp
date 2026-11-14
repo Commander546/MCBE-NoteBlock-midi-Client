@@ -2,8 +2,10 @@
 #include <windows.h>
 
 #include <cstddef>
+#include <filesystem>
 #include <string>
 #include <vector>
+
 
 struct TrackInfo {
   int track = 0;
@@ -33,6 +35,8 @@ struct PlayerStatus {
 };
 
 bool player_load(std::string path);
+bool player_load_path(const std::filesystem::path
+                          &path); // ダイアログで選んだパスを、そのまま読む
 std::vector<TrackInfo> player_tracks();
 bool player_play(HWND hwnd, const PlayOptions &opt);
 void player_stop();
