@@ -1,0 +1,9 @@
+build/
+.xmake/
+.vscode/compile_commands.json
+*.log
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
