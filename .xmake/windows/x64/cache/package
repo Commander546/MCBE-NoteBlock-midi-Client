@@ -1,38 +1,38 @@
 {
     safetyhook = {
-        license = "BSL-1.0",
+        libfiles = {
+            [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib\safetyhook.lib]],
+            [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib\Zydis.lib]],
+            [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib\Zycore.lib]]
+        },
         links = {
             "safetyhook",
             "Zydis",
             "Zycore"
         },
+        license = "BSL-1.0",
+        __requirestr = "safetyhook",
         static = true,
-        defines = "ZYDIS_STATIC_BUILD",
-        installdir = [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7]],
+        __enabled = true,
         sysincludedirs = {
             [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\include]],
             [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]],
             [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]]
         },
-        version = "v0.7.0",
         linkdirs = {
             [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib]],
             [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib]],
             [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib]]
         },
+        defines = "ZYDIS_STATIC_BUILD",
+        version = "v0.7.0",
+        installdir = [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7]],
         envs = {
             PATH = {
                 [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\n\ninja\v1.13.2\388143d312d14320a9c5240d43405107\bin]],
                 [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\c\cmake\4.3.4\0f8cea59944043e09419f613dd6acd4d\bin]],
                 [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\bin]]
             }
-        },
-        __requirestr = "safetyhook",
-        libfiles = {
-            [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib\safetyhook.lib]],
-            [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib\Zydis.lib]],
-            [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib\Zycore.lib]]
-        },
-        __enabled = true
+        }
     }
 }

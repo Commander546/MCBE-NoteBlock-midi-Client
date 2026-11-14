@@ -33801,3 +33801,573 @@
 [mcnote] attack calling: this=0x57B6EB36900 pos=(21, 6, -109) face=1 (last real click 867203 ms ago)
 [mcnote] attack done: ret=true arg4[0]=0
 [mcnote] stop called
+[mcnote] loaded
+[mcnote] log file: C:\Users\yoshihiro\Desktop\mc-note-client\build\windows\x64\release\mcnote.log
+[mcnote] Present/ResizeBuffers hooked
+[mcnote] first call: IDXGISwapChain::Present
+[mcnote] Present1 hooked
+[mcnote] imgui initialized, render thread: tid=13584 name=Rendering Pool(0)
+[mcnote] ResizeBuffers1 hooked
+[mcnote] graphics API: D3D11
+[mcnote] cursor hooks installed
+[mcnote] install_note_probe called
+[mcnote] sig 'note write': 1 hit(s)
+[mcnote] note write hooked
+[mcnote] sig 'note read': 3 hit(s)
+[mcnote]   hooked read site +0x76EE6E0 (obj reg=6)
+[mcnote]   hooked read site +0x76EEBC6 (obj reg=7)
+[mcnote]   hooked read site +0x76EEE80 (obj reg=3)
+[mcnote] sig 'start destroy': 1 hit(s)
+[mcnote] attack fn hooked + crash logger installed (left-click blocks to capture)
+[mcnote] packet id 26: 2 getId candidate(s)
+[mcnote]  id 26: getId +0x3B114B0 is stored at +0xF1B7C48
+[mcnote]   getId-1 = +0x211320 size=0x23 traced (enter)
+[mcnote]   getId+1 = +0x3B114C0 (skipped: tiny or not plain)
+[mcnote]   getId+2 = +0xD3DD20 (skipped: tiny or not plain)
+[mcnote]   getId+3 = +0x2395100 size=0xA0 traced (enter)
+[mcnote]   getId+4 = +0x3B114E0 size=0x10C traced (enter)
+[mcnote]   getId+5 = +0x3B11A90 size=0x1BF traced (exit)
+[mcnote]   getId+6 = +0xD3D410 (skipped: tiny or not plain)
+[mcnote]   getId+7 = +0x2395370 size=0x396 traced (exit)
+[mcnote]   getId+8 = +0x3B115F0 size=0x315 traced (exit)
+[mcnote]   getId+9 = +0x76920 (skipped: tiny or not plain)
+[mcnote]   getId+10 = +0x84510 (skipped: tiny or not plain)
+[mcnote]   getId+11 = +0x3396CE0 (skipped: tiny or not plain)
+[mcnote]   getId+12 = +0x3396CF0 (skipped: tiny or not plain)
+[mcnote]   getId+13 = +0x3B12EA0 size=0x6FC traced (exit)
+[mcnote]  id 26: getId +0x3B114B0 is stored at +0xF2586C8
+[mcnote]   getId-1 = +0x5557E90 size=0xE2 traced (enter)
+[mcnote]   getId+1 = +0x55547C0 size=0x18 traced (enter)
+[mcnote]   getId+2 = +0x5552320 size=0x229 traced (enter)
+[mcnote]   getId+3 = +0x86C9F0 (skipped: tiny or not plain)
+[mcnote]   getId+4 = +0x3F73F70 (skipped: tiny or not plain)
+[mcnote]   getId+5 = +0x5557F80 size=0x1AC traced (exit)
+[mcnote]   getId+6 = +0xCE19C0 (skipped: tiny or not plain)
+[mcnote]   getId+7 = +0x5552750 size=0x206 traced (exit)
+[mcnote]   getId+8 = +0x5552660 size=0xE1 traced (exit)
+[mcnote]   getId+12 = +0x29ABC00 (skipped: tiny or not plain)
+[mcnote] packet id 123: 1 getId candidate(s)
+[mcnote]  id 123: getId +0x33C7D90 is stored at +0xF116638
+[mcnote]   getId-1 = +0x1EE84E0 size=0x3B traced (enter)
+[mcnote]   getId+1 = +0x33C7DA0 (skipped: tiny or not plain)
+[mcnote]   getId+4 = +0x33C7DC0 size=0x377 traced (enter)
+[mcnote]   getId+5 = +0x33C85E0 size=0x1BF traced (exit)
+[mcnote]   getId+8 = +0x33C8140 size=0x315 traced (enter)
+[mcnote]   getId+11 = +0x29D46B0 (skipped: tiny or not plain)
+[mcnote]   getId+12 = +0x29D46C0 (skipped: tiny or not plain)
+[mcnote]   getId+13 = +0x33CB3E0 size=0x6FC traced (enter)
+[mcnote] packet probe: 10 enter hook(s), 8 exit hook(s) (F7 to record)
+[mcnote] block event: 2 getId candidate(s)
+[mcnote]   candidate vtable +0xF1B7C40 rtti=''
+[mcnote]   candidate vtable +0xF2586C0 rtti=''
+[mcnote] block event: RTTI name not readable; using the first candidate
+[mcnote] block event hooked: +0x3B115F0 size=0x315
+[mcnote] rc probe: 4 hook(s) installed (F6 to record)
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] game mode captured: this=0x497CB369760
+[mcnote] game mode offset candidates in player: +0xAC8
+[mcnote] game mode offset found: player+0xAC8
+[mcnote] real call: pos=(21, 6, -111) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 FC 95 8D 2B 16 03 00 00 after: 01 00 00 00 00 00 00 00 FC 95 8D 2B 16 03 00 00 
+[mcnote] game mode vtable = +0xF1A9E60
+[mcnote] vtable [0]=+0x3774DD0 [1]=+0x3769640 [2]=+0x3769ED0 [3]=+0x376A2F0
+[mcnote] vtable [4]=+0x376AEE0 [5]=+0x376AF20 [6]=+0x376AF50 [7]=+0x376B840
+[mcnote] vtable [8]=+0x376C200 [9]=+0x376F6C0 [10]=+0x376EF00 [11]=+0x376E2A0
+[mcnote] vtable [12]=+0x376ED10 [13]=+0x376C780 [14]=+0x3768290 [15]=+0x3769000
+[mcnote] vtable [16]=+0x376F020 [17]=+0x768F0 [18]=+0x76920 [19]=+0x149A10
+[mcnote] vtable [20]=+0x3774E40 [21]=+0x376FD20 [22]=+0x376FD00 [23]=+0x376A2F0
+[mcnote] vtable [24]=+0x376AEE0 [25]=+0x376FF20 [26]=+0x376FF60 [27]=+0x376B840
+[mcnote] vtable [28]=+0x376C200 [29]=+0x3770050 [30]=+0x376EF00 [31]=+0x376FF80
+[mcnote] vtable [32]=+0x376FFB0 [33]=+0x376FFD0 [34]=+0x376FCE0 [35]=+0x376FCC0
+[mcnote] vtable [36]=+0x376F020 [37]=+0x3770630 [38]=+0x3770640 [39]=+0x27296B0
+[mcnote] vtable [40]=+0x123720 [41]=+0x3770780 [42]=+0x155960 [43]=+0x768F0
+[mcnote] vtable [44]=+0x3772C60 [45]=+0x155960 [46]=+0xA49D0 [47]=+0x768F0
+[mcnote] vtable [48]=+0x3772DC0 [49]=+0xA49D0 [50]=+0x3772EC0 [51]=+0x3772EC0
+[mcnote] vtable [52]=+0x3772EE0 [53]=+0x3774060 [54]=+0x133F50 [55]=+0x79570
+[mcnote] vtable [56]=+0x155960 [57]=+0x768F0 [58]=+0x3772C60 [59]=+0x155960
+[mcnote] vtable [60]=+0x155960 [61]=+0x768F0 [62]=+0x3772C60 [63]=+0x155960
+[mcnote] startDestroyBlock = vtable slot 1
+[mcnote]   traced slot[0]: +0x3774DD0 size=0x6C
+[mcnote]   traced slot[2]: +0x3769ED0 size=0x347
+[mcnote]   traced slot[3]: +0x376A2F0 size=0x9D9
+[mcnote]   traced slot[4]: +0x376AEE0 size=0x39
+[mcnote]   traced slot[5]: +0x376AF20 size=0x23
+[mcnote]   traced slot[6]: +0x376AF50 size=0x4D7
+[mcnote]   traced slot[7]: +0x376B840 size=0x955
+[mcnote]   traced slot[8]: +0x376C200 size=0x32
+[mcnote]   traced slot[9]: +0x376F6C0 size=0x2C
+[mcnote] real call: pos=(22, 6, -111) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 F8 63 B3 73 1A 03 00 00 after: 01 00 00 00 00 00 00 00 F8 63 B3 73 1A 03 00 00 
+[mcnote] real call: pos=(23, 6, -111) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 A0 99 60 A2 1A 03 00 00 after: 01 00 00 00 00 00 00 00 A0 99 60 A2 1A 03 00 00 
+[mcnote] real call: pos=(24, 6, -111) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 24 F7 EF DB 1A 03 00 00 after: 01 00 00 00 00 00 00 00 24 F7 EF DB 1A 03 00 00 
+[mcnote] real call: pos=(20, 6, -110) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 54 6F 8F 1B 1B 03 00 00 after: 01 00 00 00 00 00 00 00 54 6F 8F 1B 1B 03 00 00 
+[mcnote] real call: pos=(21, 6, -110) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 F0 8B B8 98 1B 03 00 00 after: 01 00 00 00 00 00 00 00 F0 8B B8 98 1B 03 00 00 
+[mcnote] real call: pos=(22, 6, -110) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 AC F1 2D ED 1B 03 00 00 after: 01 00 00 00 00 00 00 00 AC F1 2D ED 1B 03 00 00 
+[mcnote] real call: pos=(23, 6, -110) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 B0 59 48 4D 1C 03 00 00 after: 01 00 00 00 00 00 00 00 B0 59 48 4D 1C 03 00 00 
+[mcnote] real call: pos=(24, 6, -110) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 D0 DF A5 B2 1C 03 00 00 after: 01 00 00 00 00 00 00 00 D0 DF A5 B2 1C 03 00 00 
+[mcnote] real call: pos=(20, 6, -109) face=1 ret=true arg4 before: 00 00 00 00 00 00 00 00 34 A9 A9 2B 1D 03 00 00 after: 01 00 00 00 00 00 00 00 34 A9 A9 2B 1D 03 00 00 
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] scan done: 28 objects, 750 ms, vtable +0xF2085B0
+[mcnote]   obj=0x497F9D63710 pos=(-18, 2, -117) note=0
+[mcnote]   obj=0x4977651BF50 pos=(-18, 2, -101) note=4
+[mcnote]   obj=0x4980B47B410 pos=(20, 6, -113) note=0
+[mcnote]   obj=0x4980B476E10 pos=(20, 6, -112) note=0
+[mcnote]   obj=0x4980B474110 pos=(20, 6, -111) note=0
+[mcnote]   obj=0x497CBAD3710 pos=(20, 6, -110) note=10
+[mcnote]   obj=0x4980B893990 pos=(20, 6, -109) note=10
+[mcnote]   obj=0x4980B47BCD0 pos=(21, 6, -113) note=0
+[mcnote]   obj=0x4980B47BE10 pos=(21, 6, -112) note=0
+[mcnote]   obj=0x4981650E110 pos=(21, 6, -111) note=0
+[mcnote]   obj=0x4980B4735D0 pos=(21, 6, -110) note=10
+[mcnote]   obj=0x4980B895650 pos=(21, 6, -109) note=0
+[mcnote]   obj=0x4980B47C310 pos=(22, 6, -113) note=0
+[mcnote]   obj=0x4980B474C50 pos=(22, 6, -112) note=0
+[mcnote]   obj=0x4980B479750 pos=(22, 6, -111) note=10
+[mcnote]   obj=0x497CBAD1B90 pos=(22, 6, -110) note=0
+[mcnote]   obj=0x4980B895150 pos=(22, 6, -109) note=0
+[mcnote]   obj=0x4980B475790 pos=(23, 6, -113) note=0
+[mcnote]   obj=0x4980B474750 pos=(23, 6, -112) note=0
+[mcnote]   obj=0x4980B47AB50 pos=(23, 6, -111) note=10
+[mcnote]   obj=0x4981650A790 pos=(23, 6, -110) note=0
+[mcnote]   obj=0x4980B890510 pos=(23, 6, -109) note=0
+[mcnote]   obj=0x49816CF53D0 pos=(24, 6, -113) note=0
+[mcnote]   obj=0x49816CF2090 pos=(24, 6, -112) note=0
+[mcnote]   obj=0x497CBAD6190 pos=(24, 6, -111) note=10
+[mcnote]   obj=0x4980B893AD0 pos=(24, 6, -110) note=0
+[mcnote]   obj=0x4980B891050 pos=(24, 6, -109) note=0
+[mcnote]   obj=0x4977CC46410 pos=(34, 4, -71) note=0
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(-18, 2, -117) face=1 (last real click 10344 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop fn (+0x376AEE0, size 0x39) bytes: E9 2D 54 88 FC 48 89 CE 48 8B 89 C0 00 00 00 F3 0F 10 56 24 48 8B 01 48 8B 40 40 FF 15 6F 50 23 0C C7 46 24 00 00 00 00 
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(-18, 2, -101) face=1 (last real click 11094 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(20, 6, -113) face=1 (last real click 11109 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(20, 6, -112) face=1 (last real click 11109 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(20, 6, -111) face=1 (last real click 11109 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(20, 6, -110) face=1 (last real click 11109 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (20, 6, -111) instrument=15 note=10
+[mcnote] block event: (20, 6, -110) instrument=15 note=15
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(20, 6, -109) face=1 (last real click 11250 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (20, 6, -109) instrument=15 note=20
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(21, 6, -113) face=1 (last real click 11390 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(21, 6, -112) face=1 (last real click 11828 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(21, 6, -111) face=1 (last real click 11828 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(21, 6, -110) face=1 (last real click 11844 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (21, 6, -113) instrument=15 note=1
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -111) instrument=15 note=11
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(21, 6, -109) face=1 (last real click 11984 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(22, 6, -113) face=1 (last real click 12156 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(22, 6, -112) face=1 (last real click 12297 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(22, 6, -111) face=1 (last real click 12453 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (22, 6, -111) instrument=15 note=12
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(22, 6, -110) face=1 (last real click 12609 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (22, 6, -110) instrument=15 note=17
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(22, 6, -109) face=1 (last real click 12750 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (22, 6, -109) instrument=15 note=22
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(23, 6, -113) face=1 (last real click 12906 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (23, 6, -113) instrument=15 note=3
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(23, 6, -112) face=1 (last real click 13047 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(23, 6, -111) face=1 (last real click 13203 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (23, 6, -111) instrument=15 note=13
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(23, 6, -110) face=1 (last real click 13359 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (23, 6, -110) instrument=15 note=18
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(23, 6, -109) face=1 (last real click 13500 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (23, 6, -109) instrument=15 note=23
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(24, 6, -113) face=1 (last real click 13656 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(24, 6, -112) face=1 (last real click 13797 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(24, 6, -111) face=1 (last real click 13953 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(24, 6, -110) face=1 (last real click 14109 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(24, 6, -109) face=1 (last real click 14250 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(34, 4, -71) face=1 (last real click 14406 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (20, 6, -110) instrument=15 note=15
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (22, 6, -110) instrument=15 note=17
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -111) instrument=15 note=12
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (22, 6, -110) instrument=15 note=17
+[mcnote] block event: (22, 6, -111) instrument=15 note=12
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -111) instrument=15 note=12
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -111) instrument=15 note=12
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (20, 6, -110) instrument=15 note=15
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (20, 6, -110) instrument=15 note=15
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (20, 6, -112) instrument=15 note=5
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (21, 6, -110) instrument=15 note=16
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (20, 6, -110) instrument=15 note=15
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (24, 6, -111) instrument=15 note=14
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (21, 6, -109) instrument=15 note=21
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] block event: (23, 6, -112) instrument=15 note=8
+[mcnote] block event: (22, 6, -111) instrument=15 note=12
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (21, 6, -111) instrument=15 note=11
+[mcnote] block event: (24, 6, -112) instrument=15 note=9
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (24, 6, -113) instrument=15 note=4
+[mcnote] block event: (22, 6, -113) instrument=15 note=2
+[mcnote] block event: (21, 6, -112) instrument=15 note=6
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (24, 6, -110) instrument=15 note=19
+[mcnote] block event: (22, 6, -112) instrument=15 note=7
+[mcnote] block event: (20, 6, -113) instrument=15 note=0
+[mcnote] block event: (24, 6, -109) instrument=15 note=24
+[mcnote] attack calling: this=0x4980AF1DAC0 pos=(21, 6, -109) face=1 (last real click 72250 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] attack calling: this=0x497EDD0D200 pos=(24, 6, -112) face=1 (last real click 37344 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x497EDD0D200 pos=(23, 6, -110) face=1 (last real click 214250 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x497EDD0D200 pos=(24, 6, -111) face=1 (last real click 214250 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x497EDD0D200 pos=(21, 6, -111) face=1 (last real click 214266 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x497EDD0D200 pos=(24, 6, -112) face=1 (last real click 214266 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(21, 6, -111) face=1 (last real click 600156 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(22, 6, -113) face=1 (last real click 600156 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(22, 6, -110) face=1 (last real click 727406 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(22, 6, -111) face=1 (last real click 727406 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(24, 6, -112) face=1 (last real click 727406 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(20, 6, -112) face=1 (last real click 727406 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] rc probe ON
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD058->[0x4100000001,0x49700000000,0xFFFFFFFFFFFFFFFF,0x3F1078000000000] rdx=0x4977E439EB0->[0x7FF78DD4AE80,0x497F1E4FAB0,0x4977E272480,0x0] r8=0x497F1AE6E7C->[0x2000100000000,0x270014000A0007,0x2000100000000,0x270014000A0007] r9=0x497F1AE6E70->[0xA000700020001,0x270014,0xA000700020001,0x270014]
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x0 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCF00->[0x4977298CD10,0x4977298CD00,0xDED5BD058,0x4976C1BAE00] rdx=0xDED5BCF18->[0x4976C1BAE00,0xFFFFFFFFFFFFFFFE,0x4976C1BAE00,0x4977E439C10] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCE90->[0x4977298CD10,0x4977298CD00,0xDED5BD0F0,0x0] rdx=0xDED5BCEA8->[0x0,0xFFFFFFFFFFFFFFFE,0x0,0x0] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x497ECB6C1E0,0x0] rdx=0x497F8E02CB0->[0x7FF78DD4AE80,0x497F1E4FAB0,0x49778D5C1E0,0x0] r8=0x497F1AE6E7C->[0x2000100000000,0x270014000A0007,0x2000100000000,0x270014000A0007] r9=0x497F1AE6E70->[0xA000700020001,0x270014,0xA000700020001,0x270014]
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x0 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCF00->[0x4977298CD10,0x4977298CD00,0xDED5BD058,0x4976C1BAE00] rdx=0xDED5BCF18->[0x4976C1BAE00,0xFFFFFFFFFFFFFFFE,0x4976C1BAE00,0x497F8E02A10] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCE90->[0x4977298CD10,0x4977298CD00,0xDED5BD0F0,0x0] rdx=0xDED5BCEA8->[0x0,0xFFFFFFFFFFFFFFFE,0x0,0x0] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD348->[0x498325B2A00,0x1,0x0,0x498325B2A00] rdx=0x49832F1EF58->[0x7FF78DD4AE80,0x0,0x0,0x0] r8=0x49832F1EF58->[0x7FF78DD4AE80,0x0,0x0,0x0] r9=0x497F1BE7510->[0x4976C5D5020,0x497F1BED390,0x497F1BEC688,0x4976C5CC820]
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD348->[0x498325B8C00,0x1,0x0,0x498325B8C00] rdx=0x49832F1C4D8->[0x7FF78DD4AE80,0x0,0x0,0x0] r8=0x49832F1C4D8->[0x7FF78DD4AE80,0x0,0x0,0x0] r9=0x497F1BE7510->[0x4976C5D5020,0x497F1BED390,0x497F1BEC688,0x4976C5CC820]
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(23, 6, -109) face=1 (last real click 873453 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(21, 6, -110) face=1 (last real click 873469 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(20, 6, -113) face=1 (last real click 1065281 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(23, 6, -112) face=1 (last real click 1159047 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(20, 6, -111) face=1 (last real click 1325219 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x4980AEA58C0 pos=(24, 6, -112) face=1 (last real click 1513250 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] attack calling: this=0x49832F13840 pos=(24, 6, -110) face=1 (last real click 78750 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x49832F13840 pos=(22, 6, -112) face=1 (last real click 78750 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] attack calling: this=0x49838E3DC00 pos=(21, 6, -109) face=1 (last real click 219265 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] attack calling: this=0x49838E3DC00 pos=(24, 6, -110) face=1 (last real click 219297 ms ago)
+[mcnote] attack done: ret=true arg4[0]=0
+[mcnote] stop called
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] rc probe OFF
+[mcnote] rc probe ON
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD058->[0x4100000001,0x41E42E4100000000,0xFFFFFFFFFFFFFFFF,0x3F1078000000000] rdx=0x498051D2CB0->[0x7FF78DD4AE80,0x49839BE77D0,0x4981A026360,0x0] r8=0x4983A628CDC->[0x1658F50000657079,0x39D930C000000498,0x394EB3F000000498,0xB087B8000000498] r9=0x4983A628CD0->[0xA000700020001,0x65707900270014,0x4981658F500,0x49839D930C0]
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x0 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCF00->[0x4983388D710,0x4983388D700,0xDED5BD058,0x4980AD03A00] rdx=0xDED5BCF18->[0x4980AD03A00,0xFFFFFFFFFFFFFFFE,0x4980AD03A00,0x498051D2A10] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCE90->[0x4983388D710,0x4983388D700,0xDED5BD0F0,0x0] rdx=0xDED5BCEA8->[0x0,0xFFFFFFFFFFFFFFFE,0x0,0x0] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x4976B2C5D00,0x0] rdx=0x497E6550EB0->[0x7FF78DD4AE80,0x49839BE77D0,0x4977EE0E7A0,0x0] r8=0x4983A628CDC->[0x1658F50000657079,0x39D930C000000498,0x394EB3F000000498,0xB087B8000000498] r9=0x4983A628CD0->[0xA000700020001,0x65707900270014,0x4981658F500,0x49839D930C0]
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD058->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x0 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCF00->[0x4983388D710,0x4983388D700,0xDED5BD058,0x4980AD03A00] rdx=0xDED5BCF18->[0x4980AD03A00,0xFFFFFFFFFFFFFFFE,0x4980AD03A00,0x497E6550C10] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD2C0 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x1ACDB20 rcx=0xDED5BD0F0->[0x7FF78DE56910,0x0,0x0,0x0] rdx=0x20A r8=0x1 r9=0x0
+[mcnote] rc REAL fn=+0x18DAEB0 rcx=0xDED5BCE90->[0x4983388D710,0x4983388D700,0xDED5BD0F0,0x0] rdx=0xDED5BCEA8->[0x0,0xFFFFFFFFFFFFFFFE,0x0,0x0] r8=0x20A r9=0x0
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD348->[0x49773260000,0x1,0x0,0x49773260000] rdx=0x49815DD1498->[0x7FF78DD4AE80,0x0,0x0,0x0] r8=0x49815DD1498->[0x7FF78DD4AE80,0x0,0x0,0x0] r9=0x497F1BE7510->[0x4976C5D5020,0x497F1BE0014,0x6E696769726F,0x4976C5CC820]
+[mcnote] rc REAL fn=+0x1ACD100 rcx=0xDED5BD348->[0x497F3378C00,0x1,0x0,0x497F3378C00] rdx=0x4976DB8ABD8->[0x7FF78DD4AE80,0x0,0x0,0x0] r8=0x4976DB8ABD8->[0x7FF78DD4AE80,0x0,0x0,0x0] r9=0x497F1BE7510->[0x4976C5D5020,0x497F1BE0014,0x6E696769726F,0x4976C5CC820]
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.
+[mcnote] M ignored: the cursor is visible (chat / menu?). Use Insert there.

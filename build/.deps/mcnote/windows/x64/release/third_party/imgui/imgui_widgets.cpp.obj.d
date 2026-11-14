@@ -1,8 +1,4 @@
 {
-    depfiles_format = "cl_json",
-    files = {
-        [[third_party\imgui\imgui_widgets.cpp]]
-    },
     values = {
         [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
         {
@@ -11,6 +7,12 @@
             "-O2",
             "-std:c++23preview",
             "-Isrc",
+            [[-Isrc\core]],
+            [[-Isrc\platform]],
+            [[-Isrc\game]],
+            [[-Isrc\app]],
+            [[-Isrc\ui]],
+            [[-Isrc\dev]],
             [[-Ithird_party\imgui]],
             [[-Ithird_party\imgui\backends]],
             "-DUNICODE",
@@ -27,6 +29,10 @@
             "/utf-8",
             "-DNDEBUG"
         }
+    },
+    depfiles_format = "cl_json",
+    files = {
+        [[third_party\imgui\imgui_widgets.cpp]]
     },
     depfiles = "{\
     \"Version\": \"1.2\",\

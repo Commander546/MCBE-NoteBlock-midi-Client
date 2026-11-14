@@ -1,32 +1,6 @@
 {
-    depfiles_format = "cl_json",
     files = {
         [[src\dllmain.cpp]]
-    },
-    values = {
-        [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
-        {
-            "-nologo",
-            "-MD",
-            "-O2",
-            "-std:c++23preview",
-            "-Isrc",
-            [[-Ithird_party\imgui]],
-            [[-Ithird_party\imgui\backends]],
-            "-DUNICODE",
-            "-D_UNICODE",
-            "-DNOMINMAX",
-            "-DZYDIS_STATIC_BUILD",
-            "/EHsc",
-            "-external:W0",
-            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\include]],
-            "-external:W0",
-            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]],
-            "-external:W0",
-            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]],
-            "/utf-8",
-            "-DNDEBUG"
-        }
     },
     depfiles = "{\
     \"Version\": \"1.2\",\
@@ -410,10 +384,42 @@
             \"c:\\\\program files (x86)\\\\windows kits\\\\10\\\\include\\\\10.0.26100.0\\\\ucrt\\\\math.h\",\
             \"c:\\\\program files\\\\microsoft visual studio\\\\2022\\\\community\\\\vc\\\\tools\\\\msvc\\\\14.44.35207\\\\include\\\\vcruntime_startup.h\",\
             \"c:\\\\program files\\\\microsoft visual studio\\\\2022\\\\community\\\\vc\\\\tools\\\\msvc\\\\14.44.35207\\\\include\\\\stop_token\",\
-            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\log.hpp\"\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\platform\\\\log.hpp\"\
         ],\
         \"ImportedModules\": [],\
         \"ImportedHeaderUnits\": []\
     }\
-}"
+}",
+    values = {
+        [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
+        {
+            "-nologo",
+            "-MD",
+            "-O2",
+            "-std:c++23preview",
+            "-Isrc",
+            [[-Isrc\core]],
+            [[-Isrc\platform]],
+            [[-Isrc\game]],
+            [[-Isrc\app]],
+            [[-Isrc\ui]],
+            [[-Isrc\dev]],
+            [[-Ithird_party\imgui]],
+            [[-Ithird_party\imgui\backends]],
+            "-DUNICODE",
+            "-D_UNICODE",
+            "-DNOMINMAX",
+            "-DZYDIS_STATIC_BUILD",
+            "/EHsc",
+            "-external:W0",
+            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\include]],
+            "-external:W0",
+            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]],
+            "-external:W0",
+            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]],
+            "/utf-8",
+            "-DNDEBUG"
+        }
+    },
+    depfiles_format = "cl_json"
 }

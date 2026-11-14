@@ -1,5 +1,5 @@
 set_project("mcnote")
-set_version("0.1.0")
+set_version("0.1.0-beta")
 set_languages("c++23")
 add_rules("mode.debug", "mode.release")
 add_rules("plugin.compile_commands.autoupdate", {outputdir = ".vscode"})
@@ -8,21 +8,24 @@ add_requires("safetyhook")
 
 target("mcnote")
     set_kind("shared")
-    add_files("src/*.cpp")
-    add_files("src/core/*.cpp")
-    add_includedirs("src")
-    add_files("third_party/imgui/*.cpp")
-    add_files("third_party/imgui/backends/imgui_impl_dx11.cpp")
-    add_files("third_party/imgui/backends/imgui_impl_win32.cpp")
+    add_files("src/**.cpp")
+    add_includedirs("src", "src/core", "src/platform", "src/game", "src/app", "src/ui", "src/dev")
+
+    add_files("third_party/imgui/*.cpp",
+              "third_party/imgui/backends/imgui_impl_dx11.cpp",
+              "third_party/imgui/backends/imgui_impl_dx12.cpp",
+              "third_party/imgui/backends/imgui_impl_win32.cpp")
     add_includedirs("third_party/imgui", "third_party/imgui/backends")
-    add_files("third_party/imgui/backends/imgui_impl_dx12.cpp")
+
     add_packages("safetyhook")
-    add_syslinks("user32", "d3d11", "d3d12", "dxgi", "d3dcompiler", "dwmapi", "winmm", "comdlg32", "ole32")
+    add_syslinks("user32", "d3d11", "d3d12", "dxgi", "d3dcompiler", "dwmapi", "winmm",
+                 "comdlg32", "ole32")
     add_defines("UNICODE", "_UNICODE", "NOMINMAX")
     add_cxflags("/utf-8", {tools = "cl"})
 
+-- MIDI解析のテスト(普通の xmake では作られない)
 target("midi_test")
     set_kind("binary")
     set_default(false)
     add_files("tests/midi_test.cpp", "src/core/*.cpp")
-    add_includedirs("src")
+    add_includedirs("src", "src/core")
