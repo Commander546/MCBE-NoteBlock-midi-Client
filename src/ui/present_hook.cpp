@@ -40,6 +40,7 @@
 #include "debug_flag.hpp"
 #include "file_dialog.hpp"
 #include "util_path.hpp"
+#include "version.hpp"
 
 using Microsoft::WRL::ComPtr;
 
@@ -337,6 +338,10 @@ void draw_ui() {
     ImGui::Text("%.1f FPS", ImGui::GetIO().Framerate);
     ImGui::TextDisabled(
         "Insert / M: show/hide  (M works while playing, not in chat)");
+
+    static const std::string kGameVer = game_version_string();
+    ImGui::TextDisabled("mcnote %s | Minecraft %s", kMcnoteVersion,
+                        kGameVer.c_str());
     {
       const bool dbg = debug_enabled();
       if (ImGui::Button(dbg ? "Disable Debugs" : "Enable Debugs"))

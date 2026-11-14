@@ -1,4 +1,7 @@
 {
+    files = {
+        [[src\ui\present_hook.cpp]]
+    },
     values = {
         [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
         {
@@ -29,10 +32,6 @@
             "/utf-8",
             "-DNDEBUG"
         }
-    },
-    depfiles_format = "cl_json",
-    files = {
-        [[src\ui\present_hook.cpp]]
     },
     depfiles = "{\
     \"Version\": \"1.2\",\
@@ -473,11 +472,13 @@
             \"c:\\\\program files (x86)\\\\windows kits\\\\10\\\\include\\\\10.0.26100.0\\\\shared\\\\dxgi1_4.h\",\
             \"c:\\\\program files (x86)\\\\windows kits\\\\10\\\\include\\\\10.0.26100.0\\\\shared\\\\dxgi1_3.h\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\ui\\\\gfx_dx12.hpp\",\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\platform\\\\debug_flag.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\platform\\\\file_dialog.hpp\",\
             \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\platform\\\\util_path.hpp\"\
         ],\
         \"ImportedModules\": [],\
         \"ImportedHeaderUnits\": []\
     }\
-}"
+}",
+    depfiles_format = "cl_json"
 }

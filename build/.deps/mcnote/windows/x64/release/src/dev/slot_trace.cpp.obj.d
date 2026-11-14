@@ -2,6 +2,37 @@
     files = {
         [[src\dev\slot_trace.cpp]]
     },
+    values = {
+        [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
+        {
+            "-nologo",
+            "-MD",
+            "-O2",
+            "-std:c++23preview",
+            "-Isrc",
+            [[-Isrc\core]],
+            [[-Isrc\platform]],
+            [[-Isrc\game]],
+            [[-Isrc\app]],
+            [[-Isrc\ui]],
+            [[-Isrc\dev]],
+            [[-Ithird_party\imgui]],
+            [[-Ithird_party\imgui\backends]],
+            "-DUNICODE",
+            "-D_UNICODE",
+            "-DNOMINMAX",
+            "-DZYDIS_STATIC_BUILD",
+            "/EHsc",
+            "-external:W0",
+            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\include]],
+            "-external:W0",
+            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]],
+            "-external:W0",
+            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]],
+            "/utf-8",
+            "-DNDEBUG"
+        }
+    },
     depfiles = "{\
     \"Version\": \"1.2\",\
     \"Data\": {\
@@ -403,42 +434,12 @@
             \"c:\\\\program files\\\\microsoft visual studio\\\\2022\\\\community\\\\vc\\\\tools\\\\msvc\\\\14.44.35207\\\\include\\\\__msvc_ostream.hpp\",\
             \"c:\\\\program files\\\\microsoft visual studio\\\\2022\\\\community\\\\vc\\\\tools\\\\msvc\\\\14.44.35207\\\\include\\\\ios\",\
             \"c:\\\\program files\\\\microsoft visual studio\\\\2022\\\\community\\\\vc\\\\tools\\\\msvc\\\\14.44.35207\\\\include\\\\sstream\",\
-            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\game\\\\attack.hpp\"\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\game\\\\attack.hpp\",\
+            \"c:\\\\users\\\\yoshihiro\\\\desktop\\\\mc-note-client\\\\src\\\\platform\\\\debug_flag.hpp\"\
         ],\
         \"ImportedModules\": [],\
         \"ImportedHeaderUnits\": []\
     }\
 }",
-    values = {
-        [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
-        {
-            "-nologo",
-            "-MD",
-            "-O2",
-            "-std:c++23preview",
-            "-Isrc",
-            [[-Isrc\core]],
-            [[-Isrc\platform]],
-            [[-Isrc\game]],
-            [[-Isrc\app]],
-            [[-Isrc\ui]],
-            [[-Isrc\dev]],
-            [[-Ithird_party\imgui]],
-            [[-Ithird_party\imgui\backends]],
-            "-DUNICODE",
-            "-D_UNICODE",
-            "-DNOMINMAX",
-            "-DZYDIS_STATIC_BUILD",
-            "/EHsc",
-            "-external:W0",
-            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\include]],
-            "-external:W0",
-            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]],
-            "-external:W0",
-            [[-external:IC:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]],
-            "/utf-8",
-            "-DNDEBUG"
-        }
-    },
     depfiles_format = "cl_json"
 }

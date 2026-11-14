@@ -19,7 +19,7 @@ target("mcnote")
 
     add_packages("safetyhook")
     add_syslinks("user32", "d3d11", "d3d12", "dxgi", "d3dcompiler", "dwmapi", "winmm",
-                 "comdlg32", "ole32")
+                 "comdlg32", "ole32", "version")
     add_defines("UNICODE", "_UNICODE", "NOMINMAX")
     add_cxflags("/utf-8", {tools = "cl"})
 

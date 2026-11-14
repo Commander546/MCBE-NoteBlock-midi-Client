@@ -1,28 +1,4 @@
 {
-    values = {
-        [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe]],
-        {
-            "-nologo",
-            "-machine:x64",
-            [[-libpath:C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib]],
-            [[-libpath:C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib]],
-            [[-libpath:C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib]],
-            "/opt:ref",
-            "/opt:icf",
-            "safetyhook.lib",
-            "Zydis.lib",
-            "Zycore.lib",
-            "user32.lib",
-            "d3d11.lib",
-            "d3d12.lib",
-            "dxgi.lib",
-            "d3dcompiler.lib",
-            "dwmapi.lib",
-            "winmm.lib",
-            "comdlg32.lib",
-            "ole32.lib"
-        }
-    },
     files = {
         [[build\.objs\mcnote\windows\x64\release\src\app\player.cpp.obj]],
         [[build\.objs\mcnote\windows\x64\release\src\core\midi.cpp.obj]],
@@ -50,5 +26,29 @@
         [[build\.objs\mcnote\windows\x64\release\third_party\imgui\imgui_draw.cpp.obj]],
         [[build\.objs\mcnote\windows\x64\release\third_party\imgui\imgui_tables.cpp.obj]],
         [[build\.objs\mcnote\windows\x64\release\third_party\imgui\imgui_widgets.cpp.obj]]
+    },
+    values = {
+        [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe]],
+        {
+            "-nologo",
+            "-machine:x64",
+            [[-libpath:C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib]],
+            [[-libpath:C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib]],
+            [[-libpath:C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib]],
+            "/opt:ref",
+            "/opt:icf",
+            "safetyhook.lib",
+            "Zydis.lib",
+            "Zycore.lib",
+            "user32.lib",
+            "d3d11.lib",
+            "d3d12.lib",
+            "dxgi.lib",
+            "d3dcompiler.lib",
+            "dwmapi.lib",
+            "winmm.lib",
+            "comdlg32.lib",
+            "ole32.lib"
+        }
     }
 }

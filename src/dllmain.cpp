@@ -7,6 +7,7 @@
 #include <string>
 
 #include "log.hpp"
+#include "version.hpp"
 
 void install_present_hook();
 void install_note_probe();
@@ -40,6 +41,7 @@ void setup_console() {
 DWORD WINAPI main_thread(LPVOID) {
   setup_console();
   log("[mcnote] loaded");
+  log(std::string("[mcnote] ") + kMcnoteVersion + ", Minecraft " + game_version_string());
   log("[mcnote] log file: " + log_path().string());
   install_present_hook();
   install_note_probe();

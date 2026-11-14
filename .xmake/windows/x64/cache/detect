@@ -1,103 +1,78 @@
 {
-    find_program_msvc_arch_x64_plat_windows_checktoolsh = {
-        ["link.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe]]
-    },
-    find_program = {
-        nim = false,
-        dotnet = [[C:\Program Files\dotnet\dotnet.exe]],
-        gzip = false,
-        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
-        git = [[C:\Program Files\Git\cmd\git.exe]],
-        ["7z"] = [[C:\Program Files\xmake\winenv\bin\7z]],
-        zig = false,
-        ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\cl.exe"] = [[c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.44.35207\bin\hostx64\x64\cl.exe]]
-    },
     find_package_windows_x64_fetch_package_xmake = {
-        ["xmake::zydis_391656aa809f4fddbc96778334d19c48_release_v4.1.0_external"] = {
-            static = true,
-            defines = "ZYDIS_STATIC_BUILD",
-            libfiles = {
-                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib\Zydis.lib]]
-            },
-            license = "MIT",
-            version = "v4.1.0",
-            linkdirs = {
-                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib]]
-            },
-            links = {
-                "Zydis"
-            },
-            sysincludedirs = {
-                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]]
-            }
-        },
-        ["xmake::zycore-c_28a4d85ea4b8457496f28b75007f6b23_release_v1.5.0_external"] = {
-            version = "v1.5.0",
-            static = true,
-            links = {
-                "Zycore"
-            },
-            libfiles = {
-                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib\Zycore.lib]]
-            },
-            linkdirs = {
-                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib]]
-            },
-            license = "MIT",
-            sysincludedirs = {
-                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]]
-            }
-        },
         ["xmake::safetyhook_13306f1ea52a4a9b962d07a21c9dcef7_release_v0.7.0_external"] = {
-            version = "v0.7.0",
-            static = true,
-            links = {
-                "safetyhook"
-            },
             libfiles = {
                 [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib\safetyhook.lib]]
             },
             linkdirs = {
                 [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\lib]]
             },
-            license = "BSL-1.0",
+            static = true,
             sysincludedirs = {
                 [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\s\safetyhook\v0.7.0\13306f1ea52a4a9b962d07a21c9dcef7\include]]
+            },
+            version = "v0.7.0",
+            license = "BSL-1.0",
+            links = {
+                "safetyhook"
+            }
+        },
+        ["xmake::zydis_391656aa809f4fddbc96778334d19c48_release_v4.1.0_external"] = {
+            libfiles = {
+                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib\Zydis.lib]]
+            },
+            linkdirs = {
+                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\lib]]
+            },
+            defines = "ZYDIS_STATIC_BUILD",
+            static = true,
+            sysincludedirs = {
+                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zydis\v4.1.0\391656aa809f4fddbc96778334d19c48\include]]
+            },
+            license = "MIT",
+            version = "v4.1.0",
+            links = {
+                "Zydis"
+            }
+        },
+        ["xmake::zycore-c_28a4d85ea4b8457496f28b75007f6b23_release_v1.5.0_external"] = {
+            libfiles = {
+                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib\Zycore.lib]]
+            },
+            linkdirs = {
+                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\lib]]
+            },
+            static = true,
+            sysincludedirs = {
+                [[C:\Users\yoshihiro\AppData\Local\.xmake\packages\z\zycore-c\v1.5.0\28a4d85ea4b8457496f28b75007f6b23\include]]
+            },
+            version = "v1.5.0",
+            license = "MIT",
+            links = {
+                "Zycore"
             }
         }
     },
-    find_program_fetch_package_xmake = {
-        cmake = false,
-        ninja = false
-    },
-    find_program_msvc_arch_x64_plat_windows_checktoolcc = {
-        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]]
-    },
-    ["lib.detect.has_flags"] = {
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_/utf-8"] = true,
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_cl_sourceDependencies"] = true,
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_-std:c++23"] = false,
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_cl_external_includedir"] = true,
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx__-nologo_-O2"] = true,
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_-DNDEBUG"] = true,
-        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_-std:c++23preview"] = true
-    },
-    find_programver = {
-        ["C:\\Program Files\\dotnet\\dotnet.exe"] = "10.0.403"
-    },
-    find_program_fetch_package_system = {
-        cmake = [[C:\Program Files\CMake\bin\cmake]],
-        ninja = [[C:\WINDOWS\System32\ninja.exe]]
-    },
-    find_program_msvc_arch_x64_plat_windows_checktoolld = {
-        ["link.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe]]
-    },
     find_programver_fetch_package_system = {
-        ["C:\\WINDOWS\\System32\\ninja.exe"] = "1.13.2",
-        ["C:\\Program Files\\CMake\\bin\\cmake"] = "4.4.0-rc1"
+        ["C:\\Program Files\\CMake\\bin\\cmake"] = "4.4.0-rc1",
+        ["C:\\WINDOWS\\System32\\ninja.exe"] = "1.13.2"
     },
     ["detect.sdks.find_dotnet"] = {
         dotnet = {
+            sdks = {
+                {
+                    version = "8.0.427",
+                    directory = [[C:\Program Files\dotnet\sdk\8.0.427]]
+                },
+                {
+                    version = "9.0.204",
+                    directory = [[C:\Program Files\dotnet\sdk\9.0.204]]
+                },
+                {
+                    version = "10.0.403",
+                    directory = [[C:\Program Files\dotnet\sdk\10.0.403]]
+                }
+            },
             sdkdir = [[C:\Program Files\dotnet\sdk\10.0.403]],
             runtimes = {
                 {
@@ -153,26 +128,51 @@
                     version = "10.0.14"
                 }
             },
+            version = "10.0.403",
             bindir = [[C:\Program Files\dotnet]],
-            sdks = {
-                {
-                    version = "8.0.427",
-                    directory = [[C:\Program Files\dotnet\sdk\8.0.427]]
-                },
-                {
-                    version = "9.0.204",
-                    directory = [[C:\Program Files\dotnet\sdk\9.0.204]]
-                },
-                {
-                    version = "10.0.403",
-                    directory = [[C:\Program Files\dotnet\sdk\10.0.403]]
-                }
-            },
-            sdkver = "10.0.403",
-            version = "10.0.403"
+            sdkver = "10.0.403"
         }
+    },
+    find_program_msvc_arch_x64_plat_windows_checktoolsh = {
+        ["link.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe]]
+    },
+    find_program_fetch_package_xmake = {
+        cmake = false,
+        ninja = false
+    },
+    find_program = {
+        gzip = false,
+        nim = false,
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]],
+        zig = false,
+        git = [[C:\Program Files\Git\cmd\git.exe]],
+        dotnet = [[C:\Program Files\dotnet\dotnet.exe]],
+        ["7z"] = [[C:\Program Files\xmake\winenv\bin\7z]],
+        ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\cl.exe"] = [[c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.44.35207\bin\hostx64\x64\cl.exe]]
+    },
+    find_program_msvc_arch_x64_plat_windows_checktoolcc = {
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]]
+    },
+    find_program_msvc_arch_x64_plat_windows_checktoolld = {
+        ["link.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe]]
+    },
+    find_programver = {
+        ["C:\\Program Files\\dotnet\\dotnet.exe"] = "10.0.403"
+    },
+    ["lib.detect.has_flags"] = {
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_cl_sourceDependencies"] = true,
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_-std:c++23preview"] = true,
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_/utf-8"] = true,
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_-std:c++23"] = false,
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_cl_external_includedir"] = true,
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx__-nologo_-O2"] = true,
+        ["windows_x64_c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\bin\\hostx64\\x64\\cl.exe__cxx_cxflags_-nologo_-DNDEBUG"] = true
     },
     find_program_msvc_arch_x64_plat_windows_checktoolcxx = {
         ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe]]
+    },
+    find_program_fetch_package_system = {
+        cmake = [[C:\Program Files\CMake\bin\cmake]],
+        ninja = [[C:\WINDOWS\System32\ninja.exe]]
     }
 }
