@@ -14,7 +14,7 @@ MIDIファイルを読み込んで、周りの音ブロックを順番に叩い�
 
 ## 動作環境 / Requirements
 
-- Windows 10/11、Minecraft Bedrock Edition (GDK版)
+- Windows 11、Minecraft Bedrock Edition (GDK版)
 - 動作確認したバージョン: `26.63`(ゲームの更新で動かなくなることがあります)
 - DLLインジェクター(このリポジトリには含まれません。下の「使い方」を参照)
 
